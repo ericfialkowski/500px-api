@@ -99,7 +99,7 @@ public class FeatureResponse
     public FeatureResponse getAllPhotos()
     {
         int page = current_page;
-        FeatureResponse tempFr = null;
+        FeatureResponse tempFr;
         while (page++ < total_pages)
         {
             tempFr = builder.page(page).getResponse();

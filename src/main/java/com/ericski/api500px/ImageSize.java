@@ -11,7 +11,7 @@ public enum ImageSize
     MediumThumbnail(2),
     LargeThumbnail(3),
     Image(4);
-	//LargeImage (5);
+    //LargeImage (5);
 
     private int sizeKey;
 

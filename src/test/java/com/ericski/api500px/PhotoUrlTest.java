@@ -4,14 +4,24 @@ import java.awt.image.BufferedImage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class PhotoUrlTest
 {
-    // put your consumer key here
-    private final String consumerKey = "";
+    // put your consumer key here or in the environment
+    private final static String consumerKey = System.getProperty("500PX_CONSUMER_KEY", "");
+
+    @BeforeClass
+    public static void checkForconsumerKey()
+    {
+        if (consumerKey.length() == 0)
+        {
+            fail("Please define your consumer key");
+        }
+    }
 
     @Test
     public void testSimple()

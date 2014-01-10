@@ -29,8 +29,8 @@ public enum Category
     Travel(13),
     Underwater(22);
 
-    private int val;
-    private String catName;
+    private final int val;
+    private final String catName;
 
     private Category(int val, String catName)
     {
