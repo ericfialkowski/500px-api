@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import org.apache.log4j.Logger;
 import org.scribe.builder.ServiceBuilder;
+import org.scribe.builder.api.Px500Api;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -276,7 +277,7 @@ public class Api500pxStreamBuilder
             OAuthService service = null;
             if (privateKey != null && accessToken != null)
             {
-                service = new ServiceBuilder().provider(Oauth500pxApi.class).apiKey(consumerKey).apiSecret(privateKey).build();
+                service = new ServiceBuilder().provider(Px500Api.class).apiKey(consumerKey).apiSecret(privateKey).build();
             }
             OAuthRequest request = new OAuthRequest(Verb.GET, urlString());
             if (service != null)
