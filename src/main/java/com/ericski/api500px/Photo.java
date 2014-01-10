@@ -7,336 +7,338 @@ import javax.imageio.ImageIO;
 
 public class Photo
 {
-	protected int id;
-	protected String name;
-	protected String description;
-	protected int category;
-	protected String image_url;
-	protected int votes_count;
-	protected int favorites_count;
-	protected int comments_count;
-	protected double rating;
-	protected Date created_at;
-	protected int status; // Status of the photo in the system,
-				// integer. An active photo always has
-				// the status of 1.
-	protected User user;
-	protected String camera;
-	protected String lens;
-	protected String aperture;
-	protected String focal_length;
-	protected String iso;
-	protected String shutter_speed;
-	protected Date taken_at;
-	protected String location;
-	protected double latitude;
-	protected double longitude;
-	protected BufferedImage cachedImage = null;
 
-	protected boolean nsfw;
-	protected int times_viewed;
-	protected boolean voted;
-	protected boolean favorited;
-	
-	static protected final String defaultImageUrl;
-	static
-	{
-		defaultImageUrl = Photo.class.getResource("/images/warning_3.png").toString();
-	}
-	
-	public Photo()
-	{
-		image_url = defaultImageUrl;
-	}
-	
-	public int getId()
-	{
-		return id;
-	}
+    protected int id;
+    protected String name;
+    protected String description;
+    protected int category;
+    protected String image_url;
+    protected int votes_count;
+    protected int favorites_count;
+    protected int comments_count;
+    protected double rating;
+    protected Date created_at;
+    protected int status; // Status of the photo in the system,
+    // integer. An active photo always has
+    // the status of 1.
+    protected User user;
+    protected String camera;
+    protected String lens;
+    protected String aperture;
+    protected String focal_length;
+    protected String iso;
+    protected String shutter_speed;
+    protected Date taken_at;
+    protected String location;
+    protected double latitude;
+    protected double longitude;
+    protected BufferedImage cachedImage = null;
 
-	protected void setId(int id)
-	{
-		this.id = id;
-	}
+    protected boolean nsfw;
+    protected int times_viewed;
+    protected boolean voted;
+    protected boolean favorited;
 
-	public String getName()
-	{
-		return name;
-	}
+    static protected final String defaultImageUrl;
 
-	protected void setName(String name)
-	{
-		this.name = name;
-	}
+    static
+    {
+        defaultImageUrl = Photo.class.getResource("/images/warning_3.png").toString();
+    }
 
-	public String getDescription()
-	{
-		return description;
-	}
+    public Photo()
+    {
+        image_url = defaultImageUrl;
+    }
 
-	protected void setDescription(String description)
-	{
-		this.description = description;
-	}
+    public int getId()
+    {
+        return id;
+    }
 
-	public Category getCategory()
-	{
-		return Category.parseInt(category);
-	}
+    protected void setId(int id)
+    {
+        this.id = id;
+    }
 
-	protected void setCategory(int category)
-	{
-		this.category = category;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public String getImageUrl()
-	{
-		return image_url;
-	}
+    protected void setName(String name)
+    {
+        this.name = name;
+    }
 
-	protected void setImage_url(String image_url)
-	{
-		this.image_url = image_url;
-	}
+    public String getDescription()
+    {
+        return description;
+    }
 
-	public int getVotesCount()
-	{
-		return votes_count;
-	}
+    protected void setDescription(String description)
+    {
+        this.description = description;
+    }
 
-	protected void setVotes_count(int votes_count)
-	{
-		this.votes_count = votes_count;
-	}
+    public Category getCategory()
+    {
+        return Category.parseInt(category);
+    }
 
-	public int getFavoritesCount()
-	{
-		return favorites_count;
-	}
+    protected void setCategory(int category)
+    {
+        this.category = category;
+    }
 
-	protected void setFavorites_count(int favorites_count)
-	{
-		this.favorites_count = favorites_count;
-	}
+    public String getImageUrl()
+    {
+        return image_url;
+    }
 
-	public int getCommentsCount()
-	{
-		return comments_count;
-	}
+    protected void setImage_url(String image_url)
+    {
+        this.image_url = image_url;
+    }
 
-	protected void setComments_count(int comments_count)
-	{
-		this.comments_count = comments_count;
-	}
+    public int getVotesCount()
+    {
+        return votes_count;
+    }
 
-	public double getRating()
-	{
-		return rating;
-	}
+    protected void setVotes_count(int votes_count)
+    {
+        this.votes_count = votes_count;
+    }
 
-	protected void setRating(double rating)
-	{
-		this.rating = rating;
-	}
+    public int getFavoritesCount()
+    {
+        return favorites_count;
+    }
 
-	public Date getCreatedDate()
-	{
-		return created_at;
-	}
+    protected void setFavorites_count(int favorites_count)
+    {
+        this.favorites_count = favorites_count;
+    }
 
-	protected void setCreated_at(Date created_at)
-	{
-		this.created_at = created_at;
-	}
+    public int getCommentsCount()
+    {
+        return comments_count;
+    }
 
-	public int getStatus()
-	{
-		return status;
-	}
+    protected void setComments_count(int comments_count)
+    {
+        this.comments_count = comments_count;
+    }
 
-	protected void setStatus(int status)
-	{
-		this.status = status;
-	}
+    public double getRating()
+    {
+        return rating;
+    }
 
-	public User getUser()
-	{
-		return user;
-	}
+    protected void setRating(double rating)
+    {
+        this.rating = rating;
+    }
 
-	protected void setUser(User user)
-	{
-		this.user = user;
-	}
+    public Date getCreatedDate()
+    {
+        return created_at;
+    }
 
-	public String getCamera()
-	{
-		return camera;
-	}
+    protected void setCreated_at(Date created_at)
+    {
+        this.created_at = created_at;
+    }
 
-	protected void setCamera(String camera)
-	{
-		this.camera = camera;
-	}
+    public int getStatus()
+    {
+        return status;
+    }
 
-	public String getLens()
-	{
-		return lens;
-	}
+    protected void setStatus(int status)
+    {
+        this.status = status;
+    }
 
-	protected void setLens(String lens)
-	{
-		this.lens = lens;
-	}
+    public User getUser()
+    {
+        return user;
+    }
 
-	public String getAperture()
-	{
-		return aperture;
-	}
+    protected void setUser(User user)
+    {
+        this.user = user;
+    }
 
-	protected void setAperture(String aperture)
-	{
-		this.aperture = aperture;
-	}
+    public String getCamera()
+    {
+        return camera;
+    }
 
-	public String getFocalLength()
-	{
-		return focal_length;
-	}
+    protected void setCamera(String camera)
+    {
+        this.camera = camera;
+    }
 
-	protected void setFocal_length(String focal_length)
-	{
-		this.focal_length = focal_length;
-	}
+    public String getLens()
+    {
+        return lens;
+    }
 
-	public String getIso()
-	{
-		return iso;
-	}
+    protected void setLens(String lens)
+    {
+        this.lens = lens;
+    }
 
-	protected void setIso(String iso)
-	{
-		this.iso = iso;
-	}
+    public String getAperture()
+    {
+        return aperture;
+    }
 
-	public String getShutterSpeed()
-	{
-		return shutter_speed;
-	}
+    protected void setAperture(String aperture)
+    {
+        this.aperture = aperture;
+    }
 
-	protected void setShutter_speed(String shutter_speed)
-	{
-		this.shutter_speed = shutter_speed;
-	}
+    public String getFocalLength()
+    {
+        return focal_length;
+    }
 
-	public Date getTakenDate()
-	{
-		return taken_at;
-	}
+    protected void setFocal_length(String focal_length)
+    {
+        this.focal_length = focal_length;
+    }
 
-	protected void setTaken_at(Date taken_at)
-	{
-		this.taken_at = taken_at;
-	}
+    public String getIso()
+    {
+        return iso;
+    }
 
-	public String getLocation()
-	{
-		return location;
-	}
+    protected void setIso(String iso)
+    {
+        this.iso = iso;
+    }
 
-	protected void setLocation(String location)
-	{
-		this.location = location;
-	}
+    public String getShutterSpeed()
+    {
+        return shutter_speed;
+    }
 
-	public double getLatitude()
-	{
-		return latitude;
-	}
+    protected void setShutter_speed(String shutter_speed)
+    {
+        this.shutter_speed = shutter_speed;
+    }
 
-	protected void setLatitude(double latitude)
-	{
-		this.latitude = latitude;
-	}
+    public Date getTakenDate()
+    {
+        return taken_at;
+    }
 
-	public double getLongitude()
-	{
-		return longitude;
-	}
+    protected void setTaken_at(Date taken_at)
+    {
+        this.taken_at = taken_at;
+    }
 
-	protected void setLongitude(double longitude)
-	{
-		this.longitude = longitude;
-	}
+    public String getLocation()
+    {
+        return location;
+    }
 
-	public BufferedImage getImage()
-	{
-		if (cachedImage == null)
-		{
-			BufferedImage rtn = null;
+    protected void setLocation(String location)
+    {
+        this.location = location;
+    }
 
-			try
-			{
-				rtn = ImageIO.read(new URL(image_url));
-			}
-			catch (Exception e)
-			{
-				// TODO: probably should log it or something
-				System.out.println(e.getMessage());
-				//rtn = fetchDifferently();
-			}
-			cachedImage = rtn;
-		}
-		return cachedImage;
-	}
+    public double getLatitude()
+    {
+        return latitude;
+    }
 
-	public int getTimesViewed()
-	{
-		return times_viewed;
-	}
-	
-	public void setTimesViewed(int views)
-	{
-		times_viewed = views;
-	}
+    protected void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
+    }
 
-	public boolean getNsfw()
-	{
-		return nsfw;
-	}
+    public double getLongitude()
+    {
+        return longitude;
+    }
 
-	public void setNsfw(boolean nsfw)
-	{
-		this.nsfw = nsfw;
-	}
+    protected void setLongitude(double longitude)
+    {
+        this.longitude = longitude;
+    }
 
-	public boolean getVoted()
-	{
-		return voted;
-	}
+    public BufferedImage getImage()
+    {
+        if (cachedImage == null)
+        {
+            BufferedImage rtn = null;
 
-	public void setVoted(boolean voted)
-	{
-		this.voted = voted;
-	}
+            try
+            {
+                rtn = ImageIO.read(new URL(image_url));
+            }
+            catch (Exception e)
+            {
+                // TODO: probably should log it or something
+                System.out.println(e.getMessage());
+                //rtn = fetchDifferently();
+            }
+            cachedImage = rtn;
+        }
+        return cachedImage;
+    }
 
-	public boolean getFavorited()
-	{
-		return favorited;
-	}
+    public int getTimesViewed()
+    {
+        return times_viewed;
+    }
 
-	public void setFavorited(boolean favorited)
-	{
-		this.favorited = favorited;
-	}	
+    public void setTimesViewed(int views)
+    {
+        times_viewed = views;
+    }
 
-	@Override
-	public String toString()
-	{
-		return String
-				.format("Photo [id=%s, name=%s, description=%s, category=%s, image_url=%s, votes_count=%s, favorites_count=%s, comments_count=%s, rating=%s, created_at=%s, status=%s, user=%s, camera=%s, lens=%s, aperture=%s, focal_length=%s, iso=%s, shutter_speed=%s, taken_at=%s, location=%s, latitude=%s, longitude=%s, cachedImage=%s, nsfw=%s]",
-						id, name, description, category, image_url, votes_count, favorites_count, comments_count, rating,
-						created_at, status, user, camera, lens, aperture, focal_length, iso, shutter_speed, taken_at, location,
-						latitude, longitude, cachedImage,nsfw);
-	}			
+    public boolean getNsfw()
+    {
+        return nsfw;
+    }
+
+    public void setNsfw(boolean nsfw)
+    {
+        this.nsfw = nsfw;
+    }
+
+    public boolean getVoted()
+    {
+        return voted;
+    }
+
+    public void setVoted(boolean voted)
+    {
+        this.voted = voted;
+    }
+
+    public boolean getFavorited()
+    {
+        return favorited;
+    }
+
+    public void setFavorited(boolean favorited)
+    {
+        this.favorited = favorited;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String
+                .format("Photo [id=%s, name=%s, description=%s, category=%s, image_url=%s, votes_count=%s, favorites_count=%s, comments_count=%s, rating=%s, created_at=%s, status=%s, user=%s, camera=%s, lens=%s, aperture=%s, focal_length=%s, iso=%s, shutter_speed=%s, taken_at=%s, location=%s, latitude=%s, longitude=%s, cachedImage=%s, nsfw=%s]",
+                        id, name, description, category, image_url, votes_count, favorites_count, comments_count, rating,
+                        created_at, status, user, camera, lens, aperture, focal_length, iso, shutter_speed, taken_at, location,
+                        latitude, longitude, cachedImage, nsfw);
+    }
 }

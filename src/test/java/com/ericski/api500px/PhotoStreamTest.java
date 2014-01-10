@@ -1,12 +1,5 @@
-package com.fialkowski.api500px;
+package com.ericski.api500px;
 
-import com.ericski.api500px.Api500pxPhotoUrlBuilder;
-import com.ericski.api500px.Photo;
-import com.ericski.api500px.Category;
-import com.ericski.api500px.Sort;
-import com.ericski.api500px.Api500pxStreamBuilder;
-import com.ericski.api500px.FeatureResponse;
-import com.ericski.api500px.PhotoResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -14,12 +7,11 @@ import static org.junit.Assert.fail;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore
 public class PhotoStreamTest
 {
-	//private final String privateKey = "io9rOPebZYAEgW9kxjpxwhlddY9A3tgXijytHjIj";
-	private final String consumerKey = "HZG59PbzthimGPLN6bb0OQnxeaaq6ieRcR9rW40n";
-	//private final Token accessToken = new Token("Qp8H14ju5Vg5KR4hUBpyoohMXAFA7JSMpVkDJxbS" , "R6lEfi22zHTepLdjOQoX5Xf83eFJUnJdEESqTjps");
+    // put your consumer key here
+	private final String consumerKey = "";
 
 	@Test
 	public void testFreshYesterdayPhotoCounts()
