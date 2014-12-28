@@ -16,19 +16,36 @@ public class Api500pxPhotoUrlBuilder
 
     private String consumerKey;
     private String privateKey;
+    private int imageId;    
     private Token accessToken;
 
-    private String baseUrl;
     private Integer imageSize;
     private Integer commentsPage;
     private boolean includeComments;
 
+    public Api500pxPhotoUrlBuilder()
+    {
+
+    }    
+    
     public Api500pxPhotoUrlBuilder(int imageId, String consumerKey)
     {
-        this.consumerKey = consumerKey;
-        baseUrl = String.format(PHOTO_RESOURCE_URL, imageId, consumerKey);
+        this.imageId = imageId;
+        this.consumerKey = consumerKey;        
     }
 
+    public Api500pxPhotoUrlBuilder withConsumerKey(String consumerKey)
+    {
+        this.consumerKey = consumerKey;
+        return this;
+    }
+    
+    public Api500pxPhotoUrlBuilder forImageId(int imageId)
+    {
+        this.imageId = imageId;
+        return this;
+    }
+    
     public Api500pxPhotoUrlBuilder smallThumbnail()
     {
         imageSize = ImageSize.SmallThumbnail.getSizeKey();
@@ -63,9 +80,10 @@ public class Api500pxPhotoUrlBuilder
         return this;
     }
 
-    public String urlString()
+    private String urlString()
     {
         StringBuilder bldr = new StringBuilder(128);
+        String baseUrl = String.format(PHOTO_RESOURCE_URL, imageId, consumerKey);
         bldr.append(baseUrl);
         if (imageSize != null)
         {

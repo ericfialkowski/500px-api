@@ -340,7 +340,6 @@ public class Api500pxStreamBuilder
             {
                 service.signRequest(accessToken, request);
             }
-
             Response response = request.send();
             String body = response.getBody();
             log.debug(body);
