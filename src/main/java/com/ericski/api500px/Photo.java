@@ -284,7 +284,7 @@ public class Photo
             catch (Exception e)
             {
                 // TODO: probably should log it or something
-                System.out.println(e.getMessage());
+                System.out.println("Exception in Photo.getImage(" + image_url + "): " + e.getMessage());
                 //rtn = fetchDifferently();
             }
             cachedImage = rtn;

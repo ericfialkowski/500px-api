@@ -3,6 +3,7 @@ package com.ericski.api500px;
 import com.google.gson.Gson;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Px500Api;
+import org.scribe.exceptions.OAuthConnectionException;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -16,7 +17,7 @@ public class Api500pxPhotoUrlBuilder
 
     private String consumerKey;
     private String privateKey;
-    private int imageId;    
+    private int imageId;
     private Token accessToken;
 
     private Integer imageSize;
@@ -26,12 +27,12 @@ public class Api500pxPhotoUrlBuilder
     public Api500pxPhotoUrlBuilder()
     {
 
-    }    
-    
+    }
+
     public Api500pxPhotoUrlBuilder(int imageId, String consumerKey)
     {
         this.imageId = imageId;
-        this.consumerKey = consumerKey;        
+        this.consumerKey = consumerKey;
     }
 
     public Api500pxPhotoUrlBuilder withConsumerKey(String consumerKey)
@@ -39,13 +40,13 @@ public class Api500pxPhotoUrlBuilder
         this.consumerKey = consumerKey;
         return this;
     }
-    
+
     public Api500pxPhotoUrlBuilder forImageId(int imageId)
     {
         this.imageId = imageId;
         return this;
     }
-    
+
     public Api500pxPhotoUrlBuilder smallThumbnail()
     {
         imageSize = ImageSize.SmallThumbnail.getSizeKey();
@@ -120,22 +121,43 @@ public class Api500pxPhotoUrlBuilder
                 service.signRequest(accessToken, request);
             }
 
-            Response response = request.send();
-            String body = response.getBody();
-            //System.out.println(body);
-            Gson gson = GsonFactory.getGson();
-
-            //
-            // TODO better way to check for html return
-            //
-            //if (body.contains("<html") || body.contains("<!DOCTYPE"))
-            if (body.contains("<!DOCTYPE"))
+            Response response = null;
+            int tries = 0;
+            while (response == null && tries < 3)
             {
-                System.err.println(body);
+                try
+                {
+                    tries++;
+                    response = request.send();
+                }
+                catch (OAuthConnectionException oce)
+                {
+                    if (tries < 3)
+                    {
+                        // some sort of error happened
+                        System.out.println("<TODO: log me> Exception getting response on try " + tries + " = " + oce.getMessage());
+                        Thread.sleep(tries * 500);
+                    }
+                }
             }
-            else
+            if (response != null)
             {
-                pr = gson.fromJson(body, PhotoResponse.class);
+                String body = response.getBody();
+                //System.out.println(body);
+                Gson gson = GsonFactory.getGson();
+
+                //
+                // TODO better way to check for html return
+                //
+                //if (body.contains("<html") || body.contains("<!DOCTYPE"))
+                if (body.contains("<!DOCTYPE"))
+                {
+                    System.err.println(body);
+                }
+                else
+                {
+                    pr = gson.fromJson(body, PhotoResponse.class);
+                }
             }
         }
         catch (Exception badE)
