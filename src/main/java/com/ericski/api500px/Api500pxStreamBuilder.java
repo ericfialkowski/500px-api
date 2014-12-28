@@ -31,8 +31,12 @@ public class Api500pxStreamBuilder
     private Integer rpp;
     private Token accessToken;
     private Sort sortOrder;
+    private String sortDirection;
     private String username;
     private Integer user_id;
+    private boolean tags;
+    private boolean store;
+    private boolean states;
 
     public Api500pxStreamBuilder(String consumerKey)
     {
@@ -190,6 +194,37 @@ public class Api500pxStreamBuilder
         return this;
     }
 
+    public Api500pxStreamBuilder ascending()
+    {
+        this.sortDirection = "asc";
+        return this;
+    }
+
+    public Api500pxStreamBuilder decending()
+    {
+        this.sortDirection = "desc";
+        return this;
+    }
+        
+    public Api500pxStreamBuilder withStore()
+    {
+        this.store = true;
+        return this;
+    }
+    
+        
+    public Api500pxStreamBuilder withStates()
+    {
+        this.states = true;
+        return this;
+    }
+    
+    public Api500pxStreamBuilder withTags()
+    {
+        this.tags = true;
+        return this;
+    }
+    
     protected String urlString()
     {
         StringBuilder bldr = new StringBuilder(128);
@@ -220,7 +255,7 @@ public class Api500pxStreamBuilder
             }
             catch (UnsupportedEncodingException e)
             {
-                // probably should log this
+                log.warn("Error encoding Url", e);
             }
         }
         if (excludeCategory != null)
@@ -243,6 +278,12 @@ public class Api500pxStreamBuilder
                 String sortName = URLEncoder.encode(sortOrder.name(), "utf-8");
                 bldr.append("&sort=");
                 bldr.append(sortName);
+                if (sortDirection != null)
+                {
+                    String sortDirectionName = URLEncoder.encode(sortDirection, "utf-8");
+                    bldr.append("&sort_direction=");
+                    bldr.append(sortDirectionName);
+                }
             }
             catch (UnsupportedEncodingException e)
             {
@@ -263,6 +304,21 @@ public class Api500pxStreamBuilder
         {
             bldr.append("&rpp=");
             bldr.append(rpp);
+        }
+        if (tags)
+        {
+            bldr.append("&tags=");
+            bldr.append(1);
+        }
+        if (store)
+        {
+            bldr.append("&include_store=");
+            bldr.append(1);
+        }
+        if (states)
+        {
+            bldr.append("&include_states=");
+            bldr.append(1);
         }
         log.debug(bldr.toString());
         return bldr.toString();

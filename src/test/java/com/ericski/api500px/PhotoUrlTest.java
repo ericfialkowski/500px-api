@@ -1,6 +1,7 @@
 package com.ericski.api500px;
 
 import java.awt.image.BufferedImage;
+import org.apache.log4j.BasicConfigurator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -11,13 +12,15 @@ import org.junit.Test;
 
 public class PhotoUrlTest
 {
-    // put your consumer key here or in the environment
-    private final static String consumerKey = System.getProperty("500PX_CONSUMER_KEY", "");
+
+    private static String consumerKey;
 
     @BeforeClass
     public static void checkForconsumerKey()
     {
-        if (consumerKey.length() == 0)
+        BasicConfigurator.configure();
+        consumerKey = ConsumerKeyFinder.getKey();
+        if (consumerKey.isEmpty())
         {
             fail("Please define your consumer key");
         }

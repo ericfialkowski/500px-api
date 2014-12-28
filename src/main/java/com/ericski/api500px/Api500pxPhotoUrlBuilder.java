@@ -107,7 +107,11 @@ public class Api500pxPhotoUrlBuilder
             //System.out.println(body);
             Gson gson = GsonFactory.getGson();
 
-            if (body.contains("<html") || body.contains("<!DOCTYPE"))
+            //
+            // TODO better way to check for html return
+            //
+            //if (body.contains("<html") || body.contains("<!DOCTYPE"))
+            if (body.contains("<!DOCTYPE"))
             {
                 System.err.println(body);
             }

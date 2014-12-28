@@ -1,5 +1,6 @@
 package com.ericski.api500px;
 
+import org.apache.log4j.BasicConfigurator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -9,14 +10,15 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class PhotoStreamTest
-{
-    // put your consumer key here or in the environment
-    private static final String consumerKey = System.getProperty("500PX_CONSUMER_KEY", "");
+{   
+    private static String consumerKey;
 
     @BeforeClass
     public static void checkForconsumerKey()
     {
-        if ( consumerKey.length() == 0)
+        BasicConfigurator.configure();
+        consumerKey = ConsumerKeyFinder.getKey();
+        if (consumerKey.isEmpty())
         {
             fail("Please define your consumer key");
         }
@@ -190,5 +192,26 @@ public class PhotoStreamTest
             assertNotNull(p.getUser());
             assertEquals("ericski", p.getUser().getUsername());
         }
+    }
+    
+    @Test
+    public void requestWithTags()
+    {
+        FeatureResponse pr = new Api500pxStreamBuilder(consumerKey).popularPhotos().resultsPerPage(2).withTags().getResponse();
+        assertNotNull(pr);        
+    }
+    
+    @Test
+    public void requestWithState()
+    {
+        FeatureResponse pr = new Api500pxStreamBuilder(consumerKey).popularPhotos().resultsPerPage(2).withStates().getResponse();
+        assertNotNull(pr);        
+    }
+    
+    @Test
+    public void requestWithStore()
+    {
+        FeatureResponse pr = new Api500pxStreamBuilder(consumerKey).popularPhotos().resultsPerPage(2).withStore().getResponse();
+        assertNotNull(pr);        
     }
 }
