@@ -1,12 +1,11 @@
 package com.ericski.api500px;
 
-import org.apache.log4j.BasicConfigurator;
+import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class PhotoStreamTest
@@ -16,7 +15,6 @@ public class PhotoStreamTest
     @BeforeClass
     public static void checkForconsumerKey()
     {
-        BasicConfigurator.configure();
         consumerKey = ConsumerKeyFinder.getKey();
         if (consumerKey.isEmpty())
         {
@@ -86,21 +84,14 @@ public class PhotoStreamTest
         }
     }
 
-    @Ignore
     @Test
     public void dumpPhotos()
     {
         FeatureResponse pr = new Api500pxStreamBuilder(consumerKey).freshYesterdayPhotos().largeThumbnails().resultsPerPage(1).getResponse();
-        if (pr != null)
-        {
-            Photo p = pr.getPhotos().get(0);
-            System.out.println(p);
-        }
-        else
-        {
-            fail("No response");
-        }
-
+        assertNotNull("No repsonse", pr);
+        ArrayList<Photo> photos = pr.getPhotos();
+        assertNotNull("Photos null", photos);
+        assertTrue("No photos", photos.size() > 0);        
     }
 
     @Test

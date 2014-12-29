@@ -1,6 +1,8 @@
 package com.ericski.api500px;
 
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Px500Api;
 import org.scribe.exceptions.OAuthConnectionException;
@@ -12,7 +14,8 @@ import org.scribe.oauth.OAuthService;
 
 public class Api500pxPhotoUrlBuilder
 {
-
+    private static final Logger log = LogManager.getLogger(Api500pxPhotoUrlBuilder.class);
+    
     private static final String PHOTO_RESOURCE_URL = "https://api.500px.com/v1/photos/%d?consumer_key=%s";
 
     private String consumerKey;
@@ -135,7 +138,7 @@ public class Api500pxPhotoUrlBuilder
                     if (tries < 3)
                     {
                         // some sort of error happened
-                        System.out.println("<TODO: log me> Exception getting response on try " + tries + " = " + oce.getMessage());
+                        log.info("Exception getting response on try " + tries,oce);
                         Thread.sleep(tries * 500);
                     }
                 }
@@ -143,7 +146,7 @@ public class Api500pxPhotoUrlBuilder
             if (response != null)
             {
                 String body = response.getBody();
-                //System.out.println(body);
+                log.trace(body);
                 Gson gson = GsonFactory.getGson();
 
                 //
@@ -152,7 +155,7 @@ public class Api500pxPhotoUrlBuilder
                 //if (body.contains("<html") || body.contains("<!DOCTYPE"))
                 if (body.contains("<!DOCTYPE"))
                 {
-                    System.err.println(body);
+                    log.warn("Response body: " +System.lineSeparator() + body);                   
                 }
                 else
                 {
@@ -163,7 +166,7 @@ public class Api500pxPhotoUrlBuilder
         catch (Exception badE)
         {
             // TODO: log this, turn it into another exception type
-            badE.printStackTrace();
+            log.warn("Exception getting response",badE);
         }
 
         return pr;

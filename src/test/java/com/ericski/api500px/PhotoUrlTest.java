@@ -1,13 +1,11 @@
 package com.ericski.api500px;
 
 import java.awt.image.BufferedImage;
-import org.apache.log4j.BasicConfigurator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class PhotoUrlTest
@@ -18,7 +16,6 @@ public class PhotoUrlTest
     @BeforeClass
     public static void checkForconsumerKey()
     {
-        BasicConfigurator.configure();
         consumerKey = ConsumerKeyFinder.getKey();
         if (consumerKey.isEmpty())
         {
@@ -46,8 +43,7 @@ public class PhotoUrlTest
     }
 
     @Test
-    @Ignore
-    // this image has issues decoding (cmyk?)
+    // this image had issues decoding (cmyk?)
     public void getPhoto355711()
     {
         int imageId = 355711;

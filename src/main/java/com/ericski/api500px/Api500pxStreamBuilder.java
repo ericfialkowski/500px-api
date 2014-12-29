@@ -3,7 +3,8 @@ package com.ericski.api500px;
 import com.google.gson.Gson;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Px500Api;
 import org.scribe.model.OAuthRequest;
@@ -14,8 +15,7 @@ import org.scribe.oauth.OAuthService;
 
 public class Api500pxStreamBuilder
 {
-
-    private static final Logger log = Logger.getLogger(Api500pxStreamBuilder.class);
+    private static final Logger log = LogManager.getLogger(Api500pxStreamBuilder.class);
 
     private static final String PHOTOS_URL_BASE = "https://api.500px.com/v1/photos?consumer_key=%s";
 
