@@ -4,10 +4,13 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.Date;
 import javax.imageio.ImageIO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Photo
 {
-
+    private static final Logger log = LogManager.getLogger(Photo.class);
+   
     protected int id;
     protected String name;
     protected String description;
@@ -283,9 +286,7 @@ public class Photo
             }
             catch (Exception e)
             {
-                // TODO: probably should log it or something
-                System.out.println("Exception in Photo.getImage(" + image_url + "): " + e.getMessage());
-                //rtn = fetchDifferently();
+                log.warn("Exception in Photo.getImage(" + image_url + ")",e);
             }
             cachedImage = rtn;
         }
