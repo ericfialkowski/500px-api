@@ -15,7 +15,9 @@ import org.scribe.oauth.OAuthService;
 public class Api500pxPhotoUrlBuilder
 {
     private static final Logger log = LogManager.getLogger(Api500pxPhotoUrlBuilder.class);
-    
+    private static final int MAX_RESPONSE_TRIES = Integer.getInteger("MAX_RESPONSE_TRIES", 3);
+    private static final int RETRY_DELAY = Integer.getInteger("RETRY_DELAY", 1000);
+
     private static final String PHOTO_RESOURCE_URL = "https://api.500px.com/v1/photos/%d?consumer_key=%s";
 
     private String consumerKey;
@@ -126,7 +128,7 @@ public class Api500pxPhotoUrlBuilder
 
             Response response = null;
             int tries = 0;
-            while (response == null && tries < 3)
+            while (response == null && tries < MAX_RESPONSE_TRIES)
             {
                 try
                 {
@@ -135,11 +137,15 @@ public class Api500pxPhotoUrlBuilder
                 }
                 catch (OAuthConnectionException oce)
                 {
-                    if (tries < 3)
+                    if (tries < MAX_RESPONSE_TRIES)
                     {
                         // some sort of error happened
-                        log.info("Exception getting response on try " + tries,oce);
-                        Thread.sleep(tries * 500);
+                        log.debug("Exception getting response on try " + tries);
+                        Thread.sleep((2 ^ (tries - 1)) * RETRY_DELAY);
+                    }
+                    else
+                    {
+                        log.warn("Couldn't get response after " + tries + " attempts.", oce);
                     }
                 }
             }
@@ -155,7 +161,7 @@ public class Api500pxPhotoUrlBuilder
                 //if (body.contains("<html") || body.contains("<!DOCTYPE"))
                 if (body.contains("<!DOCTYPE"))
                 {
-                    log.warn("Response body: " +System.lineSeparator() + body);                   
+                    log.warn("Response body: " + System.lineSeparator() + body);
                 }
                 else
                 {
@@ -166,7 +172,7 @@ public class Api500pxPhotoUrlBuilder
         catch (Exception badE)
         {
             // TODO: log this, turn it into another exception type
-            log.warn("Exception getting response",badE);
+            log.warn("Exception getting response", badE);
         }
 
         return pr;

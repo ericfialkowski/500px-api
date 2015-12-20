@@ -320,7 +320,7 @@ public class Api500pxStreamBuilder
             bldr.append("&include_states=");
             bldr.append(1);
         }
-        log.debug(bldr.toString());
+        log.trace(bldr.toString());
         return bldr.toString();
     }
 
@@ -342,7 +342,7 @@ public class Api500pxStreamBuilder
             }
             Response response = request.send();
             String body = response.getBody();
-            log.debug(body);
+            log.trace(body);
             Gson gson = GsonFactory.getGson();
 
             pr = gson.fromJson(body, FeatureResponse.class);
